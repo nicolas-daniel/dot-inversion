@@ -4,6 +4,9 @@
 	<meta charset="UTF-8">
 	<title>Dot Inversion</title>
 
+	<link rel="icon" type="image/png" href="images/favicon.png">
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+
 	<!-- @if NODE_ENV = 'dev' -->
 	<link rel="stylesheet" href="css/reset.css">
 	<link rel="stylesheet" href="css/style.css">
