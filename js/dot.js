@@ -5,15 +5,6 @@
 	var p = Dot.prototype;
 
 	/**
-	 * DOM elements
-	 */
-	p._left = null;
-	p._top = null;
-	p._right = null;
-	p._bottom = null;
-	p._currentArrow = null;
-
-	/**
 	 * Parameters
 	 */
 	p.colors = {white: 0xF0F0F0, indigo: 0x3F51B5};
@@ -27,23 +18,10 @@
 	 * Initialisation
 	 */
 	p.init = function() {
-		p.initParameters();
-
 		p.initPixi();
 
 		// p._dot.addEventListener('click', p.loopAnimation);
 		document.addEventListener('keydown', p.playAnimation);
-	};
-
-	/**
-	 * Init parameters
-	 */
-	p.initParameters = function() {
-		p._left = document.getElementById('left');
-		p._top = document.getElementById('top');
-		p._right = document.getElementById('right');
-		p._bottom = document.getElementById('bottom');
-		p._currentArrow = p._right;
 	};
 
 	/**
@@ -85,29 +63,21 @@
 		/* update direction */
 		if ( !p.hasChange ) {
 			if ( e.keyCode == 37 ) {
-				p._currentArrow.classList.remove('is-enabled');
-				p._left.classList.add('is-enabled');
 				p.previousTimeline = p.currentTimeline;
 				p.currentTimeline = p.tlWest;
 				p._currentArrow = p._left;
 			}
 			if ( e.keyCode == 38 ) {
-				p._currentArrow.classList.remove('is-enabled');
-				p._top.classList.add('is-enabled');
 				p.previousTimeline = p.currentTimeline;
 				p.currentTimeline = p.tlNorth;
 				p._currentArrow = p._top;
 			}
 			if ( e.keyCode == 39 ) {
-				p._currentArrow.classList.remove('is-enabled');
-				p._right.classList.add('is-enabled');
 				p.previousTimeline = p.currentTimeline;
 				p.currentTimeline = p.tlEast;
 				p._currentArrow = p._right;
 			}
 			if ( e.keyCode == 40 ) {
-				p._currentArrow.classList.remove('is-enabled');
-				p._bottom.classList.add('is-enabled');
 				p.previousTimeline = p.currentTimeline;
 				p.currentTimeline = p.tlSouth;
 				p._currentArrow = p._bottom;

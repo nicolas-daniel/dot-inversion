@@ -19,11 +19,12 @@
 	<!-- @endif -->
 </head>
 <body>
-	<section class="control">
-		<div class="control-arrow control-left" id="left"></div>
-		<div class="control-arrow control-top" id="top"></div>
-		<div class="control-arrow control-bottom" id="bottom"></div>
-		<div class="control-arrow control-right is-enabled" id="right"></div>
-	</section>
+	<div class="interface">
+		<div class="help text">Use arrows to change animation direction</div>
+
+		<div class="text text-made">Made with <span class="love"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="512px" height="512px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path id="favorite-2-icon" d="M450.703,124.225C410.233,41.419,287.288,47.821,256,119.967c-31.288-72.146-154.233-78.548-194.703,4.257C13.59,221.837,124.309,314.82,256,448.014C387.691,314.82,498.41,221.837,450.703,124.225z"/></svg>
+		</span> by <a href="https://twitter.com/nicolasdnl" target="_blank" class="text-link">Nicolas Daniel</a></div>
+		<div class="text text-inspiration">Inspired by <a href="https://dribbble.com/beesandbombs" target="_blank" class="text-link">Dave Whyte</a> - <a href="https://dribbble.com/shots/1927104-Dot-Inversion" target="_blank" class="text-link">Dot Inversion</a></div>
+	</div>
 </body>
 </html>
