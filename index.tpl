@@ -19,6 +19,8 @@
 	<!-- @endif -->
 </head>
 <body>
-	
+	<section class="control">
+		<div class="control-play" id="play"></div>
+	</section>
 </body>
 </html>

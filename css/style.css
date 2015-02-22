@@ -9,3 +9,20 @@ body {
   height: 100%;
   overflow: hidden;
 }
+.control {
+  position: absolute;
+  bottom: 36px;
+  left: 50%;
+  -webkit-transform: translate(-50%, 0);
+  -moz-transform: translate(-50%, 0);
+  -o-transform: translate(-50%, 0);
+  -ms-transform: translate(-50%, 0);
+  transform: translate(-50%, 0);
+}
+.control-play {
+  width: 60px;
+  height: 60px;
+  background-color: #303030;
+  border-radius: 50%;
+  cursor: pointer;
+}

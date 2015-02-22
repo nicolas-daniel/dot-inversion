@@ -7,20 +7,32 @@
 	/**
 	 * DOM elements
 	 */
+	p._dot = null;
 
 	/**
 	 * Parameters
 	 */
 	p.colors = {white: 0xF0F0F0, indigo: 0x3F51B5};
 	p.iteration = 0;
-	
+	p.isLooping = false;
+
 	/**
 	 * Initialisation
 	 */
 	p.init = function() {
+		p.initParameters();
+
 		p.initPixi();
 
+		p._dot.addEventListener('click', p.loopAnimation);
 		document.addEventListener('keydown', p.playAnimation);
+	};
+
+	/**
+	 * Init parameters
+	 */
+	p.initParameters = function() {
+		p._dot = document.getElementById('play');
 	};
 
 	/**
@@ -37,6 +49,17 @@
 		p.initTimelines();
 		
 		requestAnimFrame(p.animate);
+	};
+
+	p.loopAnimation = function() {
+		if ( p.isLooping ) {
+			p.isLooping = false;
+		} else {
+			p.iteration++;
+			p.isLooping = true;
+			p.tlEast.repeat(-1);
+			p.tlEast.restart();
+		}
 	};
 
 	/**
@@ -207,6 +230,11 @@
 	 */	
 	p.onAnimationRepeat = function() {
 		p.iteration++;
+		if ( !p.isLooping ) {
+			p.iteration++;
+			p.tlEast.pause();
+			p.tlEast.repeat(0);
+		}
 	};
 
 	/**
