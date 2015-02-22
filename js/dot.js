@@ -39,11 +39,22 @@
 		p.dot.drawCircle(0, 0, 25);
 		p.dotContainer.addChild(p.dot);
 
-		p.tl = new TimelineLite({paused:true, delay: 1});
-		p.tl.to(p.dot.position, 1, {x: 100, y: 200});
+		p.initTimeline();
 		p.tl.play();
 		
 		requestAnimFrame(p.animate);
+	};
+
+	/**
+	 * Timeline initialization
+	 */
+	p.initTimeline = function() {
+		p.tl = new TimelineMax({paused:true, delay: 1, repeat: -1});
+		p.tl.to(p.dot.position, 1, {x: 25*20, ease: Expo.easeIn});
+		p.tl.to(p.dot.scale, 0.5, {x: 20, y: 20, ease: Expo.easeIn}, 0.5);
+		p.tl.set(p.dot.position, {x: -(p.dot.width*20)/2, ease: Expo.ease});
+		p.tl.to(p.dot.scale, 0.5, {x: 1, y: 1, ease: Expo.easeOut}, 1);
+		p.tl.to(p.dot.position, 1, {x: 0, ease: Expo.easeOut}, 1);
 	};
 
 	/**
