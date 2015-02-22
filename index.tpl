@@ -20,7 +20,10 @@
 </head>
 <body>
 	<section class="control">
-		<div class="control-play" id="play"></div>
+		<div class="control-arrow control-left" id="left"></div>
+		<div class="control-arrow control-top" id="top"></div>
+		<div class="control-arrow control-bottom" id="bottom"></div>
+		<div class="control-arrow control-right is-enabled" id="right"></div>
 	</section>
 </body>
 </html>

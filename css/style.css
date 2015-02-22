@@ -18,11 +18,40 @@ body {
   -o-transform: translate(-50%, 0);
   -ms-transform: translate(-50%, 0);
   transform: translate(-50%, 0);
+  width: 158px;
+  height: 64px;
 }
-.control-play {
-  width: 60px;
-  height: 60px;
+.control-arrow {
+  position: absolute;
+  width: 50px;
+  height: 30px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  background-color: transparent;
+  border: 2px solid #303030;
+  border-radius: 5px;
+  -webkit-transition: background-color 0.2s ease-out;
+  -moz-transition: background-color 0.2s ease-out;
+  -o-transition: background-color 0.2s ease-out;
+  transition: background-color 0.2s ease-out;
+}
+.control-arrow.is-enabled {
   background-color: #303030;
-  border-radius: 50%;
-  cursor: pointer;
+}
+.control-arrow.control-left {
+  top: 34px;
+  left: 0;
+}
+.control-arrow.control-top {
+  top: 0;
+  left: 54px;
+}
+.control-arrow.control-bottom {
+  top: 34px;
+  left: 54px;
+}
+.control-arrow.control-right {
+  top: 34px;
+  left: 108px;
 }

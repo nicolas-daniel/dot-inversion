@@ -7,14 +7,21 @@
 	/**
 	 * DOM elements
 	 */
-	p._dot = null;
+	p._left = null;
+	p._top = null;
+	p._right = null;
+	p._bottom = null;
+	p._currentArrow = null;
 
 	/**
 	 * Parameters
 	 */
 	p.colors = {white: 0xF0F0F0, indigo: 0x3F51B5};
-	p.iteration = 0;
+	p.iteration = 1;
 	p.isLooping = false;
+	p.previousTimeline = null;
+	p.currentTimeline = null;
+	p.hasChange = false;
 
 	/**
 	 * Initialisation
@@ -24,7 +31,7 @@
 
 		p.initPixi();
 
-		p._dot.addEventListener('click', p.loopAnimation);
+		// p._dot.addEventListener('click', p.loopAnimation);
 		document.addEventListener('keydown', p.playAnimation);
 	};
 
@@ -32,7 +39,11 @@
 	 * Init parameters
 	 */
 	p.initParameters = function() {
-		p._dot = document.getElementById('play');
+		p._left = document.getElementById('left');
+		p._top = document.getElementById('top');
+		p._right = document.getElementById('right');
+		p._bottom = document.getElementById('bottom');
+		p._currentArrow = p._right;
 	};
 
 	/**
@@ -47,18 +58,23 @@
 		p.initBackground();
 		p.initDot();
 		p.initTimelines();
+		p.currentTimeline = p.tlEast;
+		p.currentTimeline.play();
 		
 		requestAnimFrame(p.animate);
 	};
 
 	p.loopAnimation = function() {
-		if ( p.isLooping ) {
-			p.isLooping = false;
-		} else {
-			p.iteration++;
-			p.isLooping = true;
-			p.tlEast.repeat(-1);
-			p.tlEast.restart();
+		if ( !p.isAnimated ) {
+			if ( p.isLooping ) {
+				p.isLooping = false;
+			} else {
+				p.hasChange = false;
+				p.iteration++;
+				p.isLooping = true;
+				p.currentTimeline.repeat(-1);
+				p.currentTimeline.restart();
+			}
 		}
 	};
 
@@ -66,27 +82,37 @@
 	 * Play animation
 	 */
 	p.playAnimation = function(e) {
-		if ( !p.isAnimated ) {
+		/* update direction */
+		if ( !p.hasChange ) {
 			if ( e.keyCode == 37 ) {
-				p.isAnimated = true;
-				p.iteration++;
-				p.tlWest.restart();
+				p._currentArrow.classList.remove('is-enabled');
+				p._left.classList.add('is-enabled');
+				p.previousTimeline = p.currentTimeline;
+				p.currentTimeline = p.tlWest;
+				p._currentArrow = p._left;
 			}
 			if ( e.keyCode == 38 ) {
-				p.isAnimated = true;
-				p.iteration++;
-				p.tlNorth.restart();
+				p._currentArrow.classList.remove('is-enabled');
+				p._top.classList.add('is-enabled');
+				p.previousTimeline = p.currentTimeline;
+				p.currentTimeline = p.tlNorth;
+				p._currentArrow = p._top;
 			}
 			if ( e.keyCode == 39 ) {
-				p.isAnimated = true;
-				p.iteration++;
-				p.tlEast.restart();
+				p._currentArrow.classList.remove('is-enabled');
+				p._right.classList.add('is-enabled');
+				p.previousTimeline = p.currentTimeline;
+				p.currentTimeline = p.tlEast;
+				p._currentArrow = p._right;
 			}
 			if ( e.keyCode == 40 ) {
-				p.isAnimated = true;
-				p.iteration++;
-				p.tlSouth.restart();
+				p._currentArrow.classList.remove('is-enabled');
+				p._bottom.classList.add('is-enabled');
+				p.previousTimeline = p.currentTimeline;
+				p.currentTimeline = p.tlSouth;
+				p._currentArrow = p._bottom;
 			}
+			if (p.previousTimeline != p.currentTimeline ) p.hasChange = true;
 		}
 	};
 
@@ -137,7 +163,7 @@
 	 * Init East timeline
 	 */
 	p.initEastTimeline = function() {
-		p.tlEast = new TimelineMax({paused: true, onRepeat: p.onAnimationRepeat, onComplete: function(){
+		p.tlEast = new TimelineMax({paused: true, repeat: -1, onRepeat: p.onAnimationRepeat, onComplete: function(){
 			p.isAnimated = false;
 		}});
 		p.initTimeline(p.tlEast, 'x', 1);
@@ -147,7 +173,7 @@
 	 * Init West timeline
 	 */
 	p.initWestTimeline = function() {
-		p.tlWest = new TimelineMax({paused: true, onRepeat: p.onAnimationRepeat, onComplete: function(){
+		p.tlWest = new TimelineMax({paused: true, repeat: -1, onRepeat: p.onAnimationRepeat, onComplete: function(){
 			p.isAnimated = false;
 		}});
 		p.initTimeline(p.tlWest, 'x', -1);
@@ -157,7 +183,7 @@
 	 * Init North timeline
 	 */
 	p.initNorthTimeline = function() {
-		p.tlNorth = new TimelineMax({paused: true, onRepeat: p.onAnimationRepeat, onComplete: function(){
+		p.tlNorth = new TimelineMax({paused: true, repeat: -1, onRepeat: p.onAnimationRepeat, onComplete: function(){
 			p.isAnimated = false;
 		}});
 		p.initTimeline(p.tlNorth, 'y', -1);
@@ -167,7 +193,7 @@
 	 * Init South timeline
 	 */
 	p.initSouthTimeline = function() {
-		p.tlSouth = new TimelineMax({paused: true, onRepeat: p.onAnimationRepeat, onComplete: function(){
+		p.tlSouth = new TimelineMax({paused: true, repeat: -1, onRepeat: p.onAnimationRepeat, onComplete: function(){
 			p.isAnimated = false;
 		}});
 		p.initTimeline(p.tlSouth, 'y', 1);
@@ -227,14 +253,21 @@
 
 	/**
 	 * Update animation iteration count
-	 */	
+	 */
 	p.onAnimationRepeat = function() {
-		p.iteration++;
-		if ( !p.isLooping ) {
+		// if ( !p.isLooping ) {
+		// 	p.currentTimeline.pause();
+		// 	p.currentTimeline.repeat(0);
+		// } else {
 			p.iteration++;
-			p.tlEast.pause();
-			p.tlEast.repeat(0);
-		}
+			if ( p.previousTimeline && p.hasChange ) {
+				p.hasChange = false;
+				p.previousTimeline.pause();
+				p.previousTimeline.repeat(0);
+				p.currentTimeline.repeat(-1);
+				p.currentTimeline.restart();
+			}
+		// }
 	};
 
 	/**
