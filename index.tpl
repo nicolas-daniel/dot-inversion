@@ -8,7 +8,8 @@
 	<link rel="stylesheet" href="css/reset.css">
 	<link rel="stylesheet" href="css/style.css">
 	<script src="vendor/pixi.dev.js"></script>
-	<script src="vendor/tweenmax.js"></script>
+	<script src="vendor/TweenLite.min.js"></script>
+	<script src="vendor/TimelineLite.min.js"></script>
 	<script src="js/app.js"></script>
 	<script src="js/dot.js"></script>
 	<!-- @endif -->

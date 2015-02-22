@@ -11,6 +11,7 @@
 	/**
 	 * Parameters
 	 */
+	p.colors = {white: 0xF0F0F0, indigo: 0x3F51B5};
 	
 	/**
 	 * Initialisation
@@ -23,10 +24,24 @@
 	 * Initialisation of pixi
 	 */
 	p.initPixi = function() {
-		p.stage = new PIXI.Stage(0xF0F0F0, true);
+		p.stage = new PIXI.Stage(p.colors.white, true);
 		p.renderer = PIXI.autoDetectRenderer(window.innerWidth, window.innerHeight, {antialias: true});
 		p.renderer.view.id = "canvas";
 		document.body.appendChild(p.renderer.view);
+
+		p.dotContainer = new PIXI.DisplayObjectContainer();
+		p.dotContainer.x = window.innerWidth/2;
+		p.dotContainer.y = window.innerHeight/2;
+		p.stage.addChild(p.dotContainer);
+
+		p.dot = new PIXI.Graphics();
+		p.dot.beginFill(p.colors.indigo, 1);
+		p.dot.drawCircle(0, 0, 25);
+		p.dotContainer.addChild(p.dot);
+
+		p.tl = new TimelineLite({paused:true, delay: 1});
+		p.tl.to(p.dot.position, 1, {x: 100, y: 200});
+		p.tl.play();
 		
 		requestAnimFrame(p.animate);
 	};
