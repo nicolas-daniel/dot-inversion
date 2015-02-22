@@ -7,12 +7,14 @@
 	/**
 	 * Parameters
 	 */
-	p.colors = {white: 0xF0F0F0, indigo: 0x3F51B5};
+	p.colorsList = [0x3F51B5, 0x9e9e9e, 0x009688, 0xdb4437, 0xf4b400, 0x02a8f3];
+	p.colors = {white: 0xF0F0F0, color: 0x3F51B5};
 	p.iteration = 1;
 	p.isLooping = false;
 	p.previousTimeline = null;
 	p.currentTimeline = null;
 	p.hasChange = false;
+	p.randomIndex = 0;
 
 	/**
 	 * Initialisation
@@ -20,7 +22,7 @@
 	p.init = function() {
 		p.initPixi();
 
-		// p._dot.addEventListener('click', p.loopAnimation);
+		document.addEventListener('click', p.changeColor);
 		document.addEventListener('keydown', p.playAnimation);
 	};
 
@@ -96,7 +98,7 @@
 		p.stage.addChild(p.dotContainer);
 
 		p.dot = new PIXI.Graphics();
-		p.dot.beginFill(p.colors.indigo, 1);
+		p.dot.beginFill(p.colors.color, 1);
 		p.dot.drawCircle(0, 0, 25);
 		p.dotContainer.addChild(p.dot);
 	};
@@ -190,7 +192,7 @@
 				p.sideContainer.addChild(p.sideRight);
 			} else {
 				p.sideRight.clear();
-				p.sideRight.beginFill(p.colors.indigo, 1);
+				p.sideRight.beginFill(p.colors.color, 1);
 				p.sideRight.drawRect(window.innerWidth/2, 0, window.innerWidth/2, window.innerHeight);
 				p.sideContainer.addChild(p.sideRight);
 			}
@@ -199,22 +201,22 @@
 		function changeColors() {
 			if ( p.iteration%2 == 0 ) {
 				p.dot.clear();
-				p.dot.beginFill(0x3F51B5, 1);
+				p.dot.beginFill(p.colors.color, 1);
 				p.dot.drawCircle(0, 0, 25);
 				p.dotContainer.addChild(p.dot);
 
 				p.sideLeft.clear();
-				p.sideLeft.beginFill(0xF0F0F0, 1);
+				p.sideLeft.beginFill(p.colors.white, 1);
 				p.sideLeft.drawRect(0, 0, window.innerWidth/2, window.innerHeight);
 				p.sideContainer.addChild(p.sideLeft);
 			} else {
 				p.dot.clear();
-				p.dot.beginFill(0xF0F0F0, 1);
+				p.dot.beginFill(p.colors.white, 1);
 				p.dot.drawCircle(0, 0, 25);
 				p.dotContainer.addChild(p.dot);
 
 				p.sideLeft.clear();
-				p.sideLeft.beginFill(0x3F51B5, 1);
+				p.sideLeft.beginFill(p.colors.color, 1);
 				p.sideLeft.drawRect(0, 0, window.innerWidth/2, window.innerHeight);
 				p.sideContainer.addChild(p.sideLeft);
 			}
@@ -225,19 +227,27 @@
 	 * Update animation iteration count
 	 */
 	p.onAnimationRepeat = function() {
-		// if ( !p.isLooping ) {
-		// 	p.currentTimeline.pause();
-		// 	p.currentTimeline.repeat(0);
-		// } else {
-			p.iteration++;
-			if ( p.previousTimeline && p.hasChange ) {
-				p.hasChange = false;
-				p.previousTimeline.pause();
-				p.previousTimeline.repeat(0);
-				p.currentTimeline.repeat(-1);
-				p.currentTimeline.restart();
-			}
-		// }
+		p.iteration++;
+		if ( p.previousTimeline && p.hasChange ) {
+			p.hasChange = false;
+			p.previousTimeline.pause();
+			p.previousTimeline.repeat(0);
+			p.currentTimeline.repeat(-1);
+			p.currentTimeline.restart();
+		}
+	};
+
+	/**
+	 * Animate
+	 */
+	p.changeColor = function() {
+		var randomIndex = Math.floor(Math.random() * p.colorsList.length);
+		while ( randomIndex === p.randomIndex ) {
+			randomIndex = Math.floor(Math.random() * p.colorsList.length);
+		}
+		p.randomIndex = randomIndex;
+		var randomColor = p.colorsList[randomIndex];
+		p.colors.color = randomColor;
 	};
 
 	/**

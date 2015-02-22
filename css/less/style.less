@@ -7,62 +7,6 @@ html, body {
 	overflow: hidden;
 }
 
-.control {
-	position: absolute;
-	bottom: 36px;
-	left: 50%;
-	.translate(-50%, 0);
-	width: 158px;
-	height: 64px;
-}
-
-// .control-play {
-// 	width: 60px;
-// 	height: 60px;
-
-// 	background-color: @darkgrey;
-
-// 	border-radius: 50%;
-
-// 	cursor: pointer;
-// }
-
-.control-arrow {
-	position: absolute;
-	width: 50px;
-	height: 30px;
-	.box-sizing(border-box);
-
-	background-color: transparent;
-	
-	border: 2px solid @darkgrey;
-	border-radius: 5px;
-
-	.transition(background-color 0.2s ease-out);
-
-	&.is-enabled {
-		background-color: @darkgrey;
-	}
-
-	&.control-left {
-		top: 34px;
-		left: 0;
-	}
-	&.control-top {
-		top: 0;
-		left: 54px;
-	}
-	&.control-bottom {
-		top: 34px;
-		left: 54px;
-	}
-	&.control-right {
-		top: 34px;
-		left: 108px;
-	}
-}
-
-
 .interface {
 	position: relative;
 	width: 100%;
@@ -81,6 +25,9 @@ canvas {
 	bottom: 48px;
 	left: 50%;
 	.translate(-50%, 0);
+
+	line-height: 20px;
+	text-align: center;
 }
 
 .text {
