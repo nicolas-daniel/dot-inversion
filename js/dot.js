@@ -24,6 +24,7 @@
 
 		document.addEventListener('click', p.changeColor);
 		document.addEventListener('keydown', p.playAnimation);
+		window.onresize = p.resizeRenderer;
 	};
 
 	/**
@@ -42,6 +43,12 @@
 		p.currentTimeline.play();
 		
 		requestAnimFrame(p.animate);
+	};
+
+	p.resizeRenderer = function() {
+		p.renderer.resize(window.innerWidth, window.innerHeight);
+		p.dotContainer.x = window.innerWidth/2;
+		p.dotContainer.y = window.innerHeight/2;
 	};
 
 	p.loopAnimation = function() {
