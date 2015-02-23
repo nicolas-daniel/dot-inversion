@@ -5,9 +5,22 @@
 	var p = Dot.prototype;
 
 	/**
+	 * DOM elements
+	 */
+	p._color = null;
+
+	/**
 	 * Parameters
 	 */
-	p.colorsList = [0x3F51B5, 0x9e9e9e, 0x009688, 0xdb4437, 0xf4b400, 0x02a8f3];
+	// p.colorsList = [0x3F51B5, 0x9e9e9e, 0x009688, 0xdb4437, 0xf4b400, 0x02a8f3];
+	p.colorsList = [
+		{ name: 'indigo', color: 0x3F51B5 },
+		{ name: 'grey', color: 0x9e9e9e },
+		{ name: 'green', color: 0x009688 },
+		{ name: 'red', color: 0xdb4437 },
+		{ name: 'yellow', color: 0xf4b400 },
+		{ name: 'blue', color: 0x02a8f3 },
+	];
 	p.colors = {white: 0xF0F0F0, color: 0x3F51B5};
 	p.iteration = 1;
 	p.isLooping = false;
@@ -20,11 +33,18 @@
 	 * Initialisation
 	 */
 	p.init = function() {
+		p.initParameters();
+
 		p.initPixi();
+		p.initNextColor();
 
 		document.addEventListener('click', p.changeColor);
 		document.addEventListener('keydown', p.playAnimation);
 		window.onresize = p.resizeRenderer;
+	};
+
+	p.initParameters = function() {
+		p._color = document.getElementById('color');
 	};
 
 	/**
@@ -245,17 +265,20 @@
 	};
 
 	/**
-	 * Animate
+	 * Change the color
 	 */
 	p.changeColor = function() {
-		var randomIndex = Math.floor(Math.random() * p.colorsList.length);
-		while ( randomIndex === p.randomIndex ) {
-			randomIndex = Math.floor(Math.random() * p.colorsList.length);
-		}
-		p.randomIndex = randomIndex;
-		var randomColor = p.colorsList[randomIndex];
-		p.colors.color = randomColor;
+		p.colors.color = p.colorsList[p.randomIndex].color;
+		p.initNextColor();
 	};
+
+	/**
+	 * Init the next color
+	 */
+	p.initNextColor = function() {
+		p.randomIndex = (p.randomIndex+1 > p.colorsList.length-1 ) ? 0 : p.randomIndex+1;
+		p._color.className = 'help-color help-color_'+p.colorsList[p.randomIndex].name;
+	}
 
 	/**
 	 * Animate

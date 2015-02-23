@@ -22,7 +22,7 @@ canvas {
 }
 .help {
   position: absolute;
-  bottom: 48px;
+  bottom: 24px;
   left: 50%;
   -webkit-transform: translate(-50%, 0);
   -moz-transform: translate(-50%, 0);
@@ -31,6 +31,38 @@ canvas {
   transform: translate(-50%, 0);
   line-height: 20px;
   text-align: center;
+}
+.help-color {
+  width: 30px;
+  height: 30px;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  -webkit-transition: background-color 0.4s ease-out;
+  -moz-transition: background-color 0.4s ease-out;
+  -o-transition: background-color 0.4s ease-out;
+  transition: background-color 0.4s ease-out;
+  -webkit-box-shadow: 0px 4px 6px -1px #303030;
+  -moz-box-shadow: 0px 4px 6px -1px #303030;
+  box-shadow: 0px 4px 6px -1px #303030;
+}
+.help-color.help-color_indigo {
+  background-color: #3F51B5;
+}
+.help-color.help-color_grey {
+  background-color: #9e9e9e;
+}
+.help-color.help-color_green {
+  background-color: #009688;
+}
+.help-color.help-color_red {
+  background-color: #db4437;
+}
+.help-color.help-color_yellow {
+  background-color: #f4b400;
+}
+.help-color.help-color_blue {
+  background-color: #02a8f3;
 }
 .text {
   font-family: "Open Sans";
